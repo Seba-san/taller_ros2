@@ -1,0 +1,2 @@
+Este es un archivo de texto que facilita el acceso al contenedor de docker. Permite el autocompletado con la tecla tab, por ejemplo:
+./run jar <tab>
