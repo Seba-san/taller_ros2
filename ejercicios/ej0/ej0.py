@@ -33,18 +33,12 @@ class EJ0(Node):
             self.pub.publish(self.msg)        
 
     def paso_3(self,data):
-        idx=2
+        idx=3
         self.bandera=True    
-        cc=self.decript(self.escondido[idx][0:-1])
-        dd=data.data
-        if type(dd)==float:
-            dd=round(dd,2)
-        if type(dd)!=str:
-            dd=str(dd)
+        self.process_(data,idx)
 
-        pos=cc.find(dd)
-        if pos>-1:
-            self.msg.data='Ejercicio finalizado!. Recuerda que cuando te pregunten tu clave es: '+dd         
+        if self.msg.data!='codigo incorrecto':
+            self.msg.data='Ejercicio finalizado!. Recuerda que cuando te pregunten tu clave es: '+ self.msg.data       
         else:
             self.msg.data='codigo incorrecto'
 
@@ -64,13 +58,16 @@ class EJ0(Node):
 
     def process_(self,data,idx):
         self.bandera=True    
-        cc=self.decript(self.escondido[idx][0:-1])
+        cc=self.cifrar_descifrar(self.escondido[0])
+        cc=cc[idx]
+        cc="".join(" "+d for d in cc)
+        #
         dd=data.data
         if type(dd)==float:
             dd=round(dd,2)
         if type(dd)!=str:
             dd=str(dd)
-
+        #import pdb;pdb.set_trace()
         pos=cc.find(dd)
         if pos>-1:
             nn=len(dd)
@@ -79,22 +76,12 @@ class EJ0(Node):
         else:
             self.msg.data='codigo incorrecto'
 
-    def decript(self,data):
-        in_=''
-        for d_ in data:
-            asd=ord(d_)+ord(data[0])-122
-            in_=in_+chr(asd)
-        return in_[1:]
-
-    def encript(self,data):        
-        d__=random.randint(97,122)
-        in_=''        
-        in_=in_+chr(d__)
-        for d_ in data:
-            asd=ord(d_)-ord(in_[0])+122
-            in_=in_+chr(asd)                
-        return in_
-
+    
+    def cifrar_descifrar(self,texto):
+        dd="".join(chr(ord(c) ^ 37) for c in texto)
+        ltc = dd.split('\n')
+        listas = [linea.split() for linea in ltc]
+        return listas
         
     
 
