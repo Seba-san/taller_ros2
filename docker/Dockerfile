@@ -23,8 +23,15 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
     gedit nano
 
+RUN apt-get update && apt-get install -y \
+    ros-humble-gazebo-ros-pkgs ros-humble-turtlebot3*
+
 # Configurar el entorno de ROS2
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+RUN echo "source /usr/share/gazebo/setup.sh" >> ~/.bashrc
+RUN echo "export TURTLEBOT3_MODEL=burger" >> ~/.bashrc
+
+RUN echo "export GAZEBO_MODEL_PATH=/usr/share/gazebo-11/models:/opt/ros/humble/share/turtlebot3_gazebo/models/:/root/catkin_ws/volumen/models" >> ~/.bashrc
 
 # Configurar el punto de entrada del contenedor
 WORKDIR /root
