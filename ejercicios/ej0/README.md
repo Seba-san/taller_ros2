@@ -42,7 +42,7 @@ Si esta todo bien, deberia salir el siguiente mensaje:
    ros2 topic pub -t 1 /tu_nombre_paso_0 std_msgs/msg/String data:\ "tu nombre"\ 
    ```
 
-   Repite este paso para cada uno de los topics listados, ajustando el tipo de dato y el contenido según corresponda. Utilice el autocompletar con la tecla <tab>
+   Repite este paso para cada uno de los topics listados, ajustando el tipo de dato y el contenido según corresponda. Utilice el autocompletar con la tecla tab.
 
 ## Objetivo del Ejercicio
 
