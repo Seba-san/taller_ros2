@@ -21,11 +21,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 #ENV LD=/usr/bin/lld-12
 
 RUN apt-get update && apt-get install -y \
-    gedit nano
+    gedit nano wget
 
 RUN apt-get update && apt-get install -y \
     ros-humble-gazebo-ros-pkgs ros-humble-turtlebot3*
-
+    
 # Configurar el entorno de ROS2
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 RUN echo "source /usr/share/gazebo/setup.sh" >> ~/.bashrc
