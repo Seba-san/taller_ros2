@@ -22,7 +22,7 @@ El escenario del ejercicio implica un laberinto en el cual se encuentra un robot
     ```bash
     ros2 run rviz2 rviz2
     ```
-   Asegúrate de configurar la variable `Fixed_frame` a `base_link` y ajusta los demás parámetros según sea necesario para visualizar correctamente la simulación.
+   Asegúrate de configurar la variable `Fixed_frame` a `base_scan` y ajusta los demás parámetros según sea necesario para visualizar correctamente la simulación.
 
 4. Si deseas controlar manualmente el robot dentro del laberinto, usa el nodo de teleoperación:
     ```bash
