@@ -43,8 +43,8 @@ def generate_launch_description():
     yaw=random.choice(posibles_valores_yaw)
     posibles_valores_roll=[0.0,np.pi]
     roll=random.choice(posibles_valores_roll)
-    x = -0.75#-0.75#-1.5
-    y = -5.5#-5.5#-11.0
+    x = -0.75
+    y = -5.5
     z = 0.0
     #yaw = np.pi
     roll=0.0
@@ -59,15 +59,6 @@ def generate_launch_description():
     z=T[2][0]
 
     LD=LaunchDescription()
-    start_gazebo2 = ExecuteProcess(
-        cmd=[
-            'gazebo', '--verbose',
-            '-s', 'libgazebo_ros_factory.so',  # Asegúrate de que el plugin esté en el path correcto
-            '-s', 'libgazebo_ros_init.so' ,
-            #,'/opt/ros/humble/share/gazebo_plugins/worlds/empty.world'  # Ruta al mundo vacío, ajusta según tu instalación
-        ],
-        output='screen'
-    )
     start_gazebo=ExecuteProcess(cmd=['ros2', 'launch', 'gazebo_ros', 'gazebo.launch.py', 'gui:=0','verbose:=1'])
     # Comando para lanzar Gazebo con el modelo especificado en la posición deseada
     spawn_entity = ExecuteProcess(

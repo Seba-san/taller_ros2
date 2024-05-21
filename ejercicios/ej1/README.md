@@ -31,7 +31,7 @@ El escenario del ejercicio implica un laberinto en el cual se encuentra un robot
 
 ## Objetivos del Ejercicio
 
-- **Desarrollar un Nodo**: Crea un nodo que publique los comandos de velocidad para el robot, de manera que se mueva más rápido y complete el laberinto lo antes posible. También puedes incorporar un sistema que detenga automáticamente el vehículo cuando haya un obstáculo lo suficientemente cerca. El actual récord está en 1 minuto, ¿podrás mejorarlo?
+- **Desarrollar un Nodo**: Crea un nodo que publique los comandos de velocidad para el robot, de manera que se mueva más rápido y complete el laberinto lo antes posible. También puedes incorporar un sistema que detenga automáticamente el vehículo cuando haya un obstáculo lo suficientemente cerca. El actual récord está en 47s, ¿podrás mejorarlo?
 
 ### Ideas de Resolución
 
