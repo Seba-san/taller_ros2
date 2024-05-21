@@ -14,6 +14,8 @@ RUN apt-get update && apt-get install -y \
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 RUN echo "source /usr/share/gazebo/setup.sh" >> ~/.bashrc
 RUN echo "export TURTLEBOT3_MODEL=burger" >> ~/.bashrc
+RUN echo "export ROS_DOMAIN_ID=12" >> ~/.bashrc
+RUN echo "export ROS_LOCALHOST_ONLY=1" >> ~/.bashrc
 
 RUN echo "export GAZEBO_MODEL_PATH=/usr/share/gazebo-11/models:/opt/ros/humble/share/turtlebot3_gazebo/models/:/root/catkin_ws/volumen/models" >> ~/.bashrc
 
