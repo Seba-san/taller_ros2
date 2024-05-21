@@ -21,7 +21,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 #ENV LD=/usr/bin/lld-12
 
 RUN apt-get update && apt-get install -y \
-    gedit nano wget
+    gedit nano wget evince
 
 RUN apt-get update && apt-get install -y \
     ros-humble-gazebo-ros-pkgs ros-humble-turtlebot3*
