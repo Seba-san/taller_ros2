@@ -1,0 +1,11 @@
+<launch>
+    <arg name="_gui" default="0"/>
+    <arg name="_verbose" default="0"/>  
+    <arg name="rviz" default="0"/>
+    <executable cmd="ros2 launch gazebo_ros gazebo.launch.py gui:=$(var _gui) verbose:=$(var _verbose)" output="screen" />
+    <node pkg="gazebo_ros"  exec="spawn_entity.py" name="spawner" args="-entity laberinto -file /root/catkin_ws/volumen/models/laberinto/model.sdf"/>
+    <node pkg="rviz2" exec="rviz2" name="rviz_visualizator" if="$(var rviz)"/>
+    <include file="$(find-pkg-share turtlebot3_gazebo)/launch/spawn_turtlebot3.launch.py">
+        <arg name="output" value="screen"/>
+      </include>
+</launch>
