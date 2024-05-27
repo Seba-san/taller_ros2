@@ -14,11 +14,12 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(rclpy REQUIRED)  # Add this if your project uses Python nodes
 
 # Include directories
 include_directories(include)
 
-# Declare executables
+# Declare C++ executables
 add_executable(subscriber_node src/qos_listener.cpp)
 add_executable(publisher_node src/qos_talker.cpp)
 
@@ -32,13 +33,18 @@ ament_target_dependencies(publisher_node
   std_msgs
 )
 
-# Install targets
+# Install C++ targets
 install(TARGETS
   subscriber_node
   publisher_node
   DESTINATION lib/${PROJECT_NAME}
 )
 
+# Install Python scripts
+install(PROGRAMS
+  src/qos_talker.py  # Modify the path/name as needed
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 # Export dependencies
 ament_package()
-
