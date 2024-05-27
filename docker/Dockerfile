@@ -9,6 +9,9 @@ RUN apt-get update && apt-get install -y \
 
 RUN apt-get update && apt-get install -y \
     ros-humble-gazebo-ros-pkgs ros-humble-turtlebot3* ros-humble-urdf-tutorial
+
+RUN apt-get update && apt-get install -y \
+	python3-pip tree
     
 # Configurar el entorno de ROS2
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
