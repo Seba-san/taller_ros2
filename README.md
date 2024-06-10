@@ -15,9 +15,16 @@ En este repositorio encontrarás los siguientes recursos:
 
 Al finalizar el taller, se realizó una encuesta de satisfacción para recoger las impresiones y el feedback de los participantes. Los datos recogidos han sido analizados y están disponibles para consulta:
 
-- [Datos de la Encuesta y Gráficos](https://github.com/Seba-san/taller_ros2/tree/master/encuesta_ed1)
+- [Datos de la Encuesta y Gráficos](https://github.com/Seba-san/taller_ros2/tree/edicion1/encuesta_ed1)
 
 En esta carpeta, encontrarás tanto el archivo CSV con las respuestas de la encuesta como varias imágenes con gráficos que resumen visualmente la información recogida.
+
+## Links de las Slides:
+- [**Clase 0**](https://docs.google.com/presentation/d/1k6obPYxbZB0H_htOwfBepzbnCYXe_RegUZhRNxZCZjI/edit?usp=sharing)
+- [**Clase 1**](https://docs.google.com/presentation/d/11k9eBOFxvmiWe9NWASTNl7dkU7nx8e7zZ2jAD1ilfZk/edit?usp=sharing)
+- [**Clase 2**](https://docs.google.com/presentation/d/1NKGI1dmCHBV7r093RLKvA4wBlRKUyxEHxCL658y7j3E/edit?usp=sharing)
+- [**Clase 3**](https://docs.google.com/presentation/d/1uN_3U4GYV5XyYaNQwtQP2mVNK9dymGk9I5DRBKU6oSg/edit?usp=sharing)
+
 
 ## Fotos del Evento
 
