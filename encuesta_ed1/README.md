@@ -1,4 +1,6 @@
-Las preguntas del tipo multiple choice fueron las siguientes:
+# Resultados de la encuesta
+Estos son los resultados de la encuesta. Los datos exportados desde google forms estan en el archivo [CSV](Taller_ROS2.csv). A continuación se muestran algunas capturas y respuestas en texto plano.
+## Las preguntas del tipo multiple choice fueron las siguientes:
 ![](images/1.png)
 ![](images/2.png)
 ![](images/3.png)
