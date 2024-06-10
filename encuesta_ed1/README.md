@@ -11,7 +11,7 @@ Estos son los resultados de la encuesta. Los datos exportados desde google forms
 ![](images/8.png)
 ![](images/9.png)
 
-Preguntas para responder con texto:
+## Preguntas para responder con texto:
 
 #### Que cambiarías de las diapositivas utilizadas en clase? (en terminos generales)
 - agregaria mas explicacion de porque ROS2  es importante aprenderlo y mas intro teorica
