@@ -58,3 +58,6 @@ Si deseas contribuir a este repositorio o tienes sugerencias para mejorar los ma
 Si tienes preguntas específicas sobre el taller o necesitas más información, puedes entrar al canal de [Discord](https://discord.gg/ppyX5qg6aX).
 
 ¡Gracias por participar en el Taller de ROS2 en la JAR2024!
+
+
+
