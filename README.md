@@ -30,7 +30,7 @@ En esta carpeta, encontrarás tanto el archivo CSV con las respuestas de la encu
 
 Durante el desarrollo del taller se tomaron varias fotos que capturan momentos clave del evento y la participación activa de los asistentes. Estas fotos están disponibles en la siguiente carpeta:
 
-- [Fotos del Taller](link-a-la-carpeta-de-fotos)
+- [Fotos del Taller](https://github.com/Seba-san/taller_ros2/tree/edicion1/fotos)
 
 ## Cómo Usar Este Repositorio
 
