@@ -33,15 +33,15 @@ Si quieres utilizar el contenedor de docker, primero debes instalarlo siguiendo 
 Luego para compilar el contenedor hacer:
 ```bash
 cd taller_ros2/docker
-docker build -t jar2024 -f Dockerfile .
+docker build -t jar2026 -f Dockerfile .
 ```
 
 Para finalizar y para comprobar el funcionamiento hacer:
 ```bash
 cd taller_ros2/docker
-./run jar2024
+./run jar2026
 ./entrar
-gazebo
+gz sim
 ```
 Si abre el simulador Gazebo, quiere decir que todo funciona correctamente.
 

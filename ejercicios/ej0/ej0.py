@@ -52,29 +52,42 @@ class EJ0(Node):
         self.process_(data,idx)
 
 
-    def paso_0(self,data):
-        idx=0
-        self.process_(data,idx)
+    def paso_0(self, data):
+        self.bandera = True
+        nombre_alumno = str(data.data).lower().strip()
+        
+        # Obtenemos los códigos disponibles (la Línea 0 del archivo)
+        cc = self.cifrar_descifrar(self.escondido[0])
+        codigos_iniciales = cc[0] # Ej: ['12', '34', '56', '78', '90']
+        
+        # Usamos el nombre del alumno como semilla. 
+        # Esto hace que la selección parezca aleatoria, pero si el alumno 
+        # publica su nombre 5 veces, SIEMPRE le tocará el mismo código.
+        random.seed(nombre_alumno)
+        codigo_asignado = random.choice(codigos_iniciales)
+        
+        self.msg.data = codigo_asignado
 
-    def process_(self,data,idx):
-        self.bandera=True    
-        cc=self.cifrar_descifrar(self.escondido[0])
-        cc=cc[idx]
-        cc="".join(" "+d for d in cc)
-        #
-        dd=data.data
-        if type(dd)==float:
-            dd=round(dd,2)
-        if type(dd)!=str:
-            dd=str(dd)
-        #import pdb;pdb.set_trace()
-        pos=cc.find(dd)
-        if pos>-1:
-            nn=len(dd)
-            txt=cc[pos+nn:].split()
-            self.msg.data=txt[0]            
+    def process_(self, data, idx):
+        self.bandera = True    
+        cc = self.cifrar_descifrar(self.escondido[0])
+        lista_paso = cc[idx]  # Esto ya es una lista, ej: ['12', '1.25', '34', '3.14']
+        
+        dd = data.data
+        if type(dd) == float:
+            dd = str(round(dd, 2))
         else:
-            self.msg.data='codigo incorrecto'
+            dd = str(dd)
+            
+        try:
+            # Buscamos en qué posición de la lista está el dato publicado
+            pos = lista_paso.index(dd)
+            
+            # La respuesta a devolver es el elemento inmediatamente siguiente
+            self.msg.data = lista_paso[pos + 1]
+        except (ValueError, IndexError):
+            # Si el valor no está en la lista o es el último impar, es incorrecto
+            self.msg.data = 'codigo incorrecto'
 
     
     def cifrar_descifrar(self,texto):

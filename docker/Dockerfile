@@ -1,26 +1,37 @@
-# Usar la imagen oficial de ROS2 Humble
-FROM osrf/ros:humble-desktop
+# Usar la imagen oficial de ROS2 Jazzy
+FROM osrf/ros:jazzy-desktop
 
 # Definir variables de entorno para evitar la interacción durante la instalación
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Herramientas de uso general
 RUN apt-get update && apt-get install -y \
-    gedit nano wget evince
+    gedit nano wget evince \
+    && rm -rf /var/lib/apt/lists/*
 
+# Instalar dependencias de ROS2 Jazzy, TurtleBot3 y nueva integración con Gazebo Harmonic
 RUN apt-get update && apt-get install -y \
-    ros-humble-gazebo-ros-pkgs ros-humble-turtlebot3* ros-humble-urdf-tutorial
+    ros-jazzy-ros-gz \
+    ros-jazzy-turtlebot3* \
+    ros-jazzy-urdf-tutorial \
+    && rm -rf /var/lib/apt/lists/*
 
+# Herramientas de Python y sistema
 RUN apt-get update && apt-get install -y \
-	python3-pip tree
+    python3-pip tree \
+    && rm -rf /var/lib/apt/lists/*
     
 # Configurar el entorno de ROS2
-RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
-RUN echo "source /usr/share/gazebo/setup.sh" >> ~/.bashrc
+RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 RUN echo "export TURTLEBOT3_MODEL=burger" >> ~/.bashrc
 RUN echo "export ROS_DOMAIN_ID=12" >> ~/.bashrc
-RUN echo "export ROS_LOCALHOST_ONLY=1" >> ~/.bashrc
 
-RUN echo "export GAZEBO_MODEL_PATH=/usr/share/gazebo-11/models:/opt/ros/humble/share/turtlebot3_gazebo/models/:/root/catkin_ws/volumen/models" >> ~/.bashrc
+RUN echo "export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST" >> ~/.bashrc
+
+# Configurar las rutas de modelos para Gazebo Harmonic (GZ_SIM_RESOURCE_PATH)
+# Se incluye también GAZEBO_MODEL_PATH por si algún paquete de terceros mantiene la ruta antigua
+RUN echo "export GZ_SIM_RESOURCE_PATH=/opt/ros/jazzy/share/turtlebot3_gazebo/models/:/root/ros2_ws/volumen/models" >> ~/.bashrc
+RUN echo "export GAZEBO_MODEL_PATH=/opt/ros/jazzy/share/turtlebot3_gazebo/models/:/root/ros2_ws/volumen/models" >> ~/.bashrc
 
 # Configurar el punto de entrada del contenedor
 WORKDIR /root

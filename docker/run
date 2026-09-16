@@ -3,22 +3,26 @@
 # Comprobar si se ha proporcionado el nombre de la imagen como argumento
 if [ $# -eq 0 ]; then
     echo "Uso: $0 <nombre_de_imagen>"
-    echo "Ejemplo: $0 lidar-slam-melodic"
+    echo "Ejemplo: $0 jar2026"
     exit 1
 fi
 
 # Asignar el primer argumento a una variable
 IMAGE_NAME="$1"
 number="${2:-}"
+
+# Cerrar y limpiar contenedores previos (si existen)
 ./cerrar_docker.sh $number
-# Ejecutar el contenedor de Docker utilizando el nombre de la imagen proporcionado
-#--privileged
-docker run  --init -it --privileged --network='host' -d \
+
+# Ejecutar el contenedor de Docker en segundo plano (-d)
+# Descomentar la línea "--gpus all \" si se dispone de NVIDIA y los drivers configurados para Docker
+docker run --init -it --privileged --network='host' -d \
   -v /etc/localtime:/etc/localtime:ro \
   -v /etc/timezone:/etc/timezone:ro \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -v /tmp/bags:/root/bags/ \
-  -v "$(pwd)/volumen:/root/catkin_ws/volumen" \
+  -v "$(pwd)/volumen:/root/ros2_ws/volumen" \
   --name workshop"$number" \
   -e DISPLAY="$DISPLAY" \
-  "$IMAGE_NAME" 
+  -e QT_X11_NO_MITSHM=1 \
+  "$IMAGE_NAME"
