@@ -1,4 +1,31 @@
 # generar_archivo.py
+"""
+Generador del archivo de claves para el Ejercicio 0 (Taller ROS 2).
+
+Cómo usar este script:
+Este programa encripta los datos utilizando la operación lógica XOR, 
+donde la clave predeterminada es 37 (puede cambiarse). Gracias a las 
+propiedades de XOR, la misma función sirve tanto para encriptar como 
+para desencriptar.
+
+El resultado final se guarda en el archivo local llamado 'archivo'.
+(TODO: Faltaría implementar la comprobación mediante un checksum o un 
+hash del original con el reconstruido para asegurar la integridad total).
+
+En general, el formato del texto plano (antes de encriptar) es:
+clave1 resultado1 clave2 resultado2 ...
+
+Además, el archivo está separado en líneas, donde cada línea representa 
+la lógica de un paso distinto dentro del ejercicio de ROS 2:
+ - Línea 0 (Paso 0): Bolsa de códigos iniciales disponibles (Números enteros).
+ - Línea 1 (Paso 1): Relación [Entero -> Float].
+ - Línea 2 (Paso 2): Relación [Float -> Palabra temática de ROS/Robótica].
+ - Línea 3 (Paso 3): Relación [Palabra temática -> Clave del alfabeto radiofónico].
+ 
+Nota: Se generan 50 caminos únicos para que cada alumno tenga 
+una clave final distinta (Ej: Alfa-Tango, Bravo-Charlie).
+"""
+
 import random
 import itertools
 
