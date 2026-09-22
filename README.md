@@ -39,7 +39,6 @@ docker build -t jar2026 -f Dockerfile .
 Para finalizar y para comprobar el funcionamiento hacer:
 ```bash
 cd taller_ros2/docker
-./run jar2026
 ./entrar
 gz sim
 ```

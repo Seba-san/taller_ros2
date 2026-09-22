@@ -1,28 +1,61 @@
 #!/bin/bash
 
+# --- Definición de colores ---
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+GRAY='\033[0;37m'
+NC='\033[0m' # No Color
+# -----------------------------
+
 # Comprobar si se ha proporcionado el nombre de la imagen como argumento
 if [ $# -eq 0 ]; then
-    echo "Uso: $0 <nombre_de_imagen>"
-    echo "Ejemplo: $0 jar2026"
+    echo -e "${RED}[ERROR] Faltan argumentos.${NC}"
+    echo -e "${GRAY}Uso: $0 <nombre_de_imagen> [numero_opcional]${NC}"
+    echo -e "${GRAY}Ejemplo: $0 jar2026${NC}"
     exit 1
 fi
 
-# Asignar el primer argumento a una variable
 IMAGE_NAME="$1"
 number="${2:-}"
+CONTAINER_NAME="workshop$number"
+
+# 1. Crear los directorios locales SI NO EXISTEN para evitar que Docker los cree como root
+mkdir -p "$(pwd)/volumen"
+# También creamos /tmp/bags por si acaso
+mkdir -p /tmp/bags 
+
+# 2. Detección automática de GPU NVIDIA
+GPU_FLAG=""
+if command -v nvidia-smi &> /dev/null; then
+    echo -e "${YELLOW}[INFO] Drivers NVIDIA detectados. Habilitando aceleración gráfica (--gpus all)...${NC}"
+    GPU_FLAG="--gpus all"
+else
+    echo -e "${GRAY}[INFO] No se detectó NVIDIA. Ejecutando en modo estándar...${NC}"
+fi
 
 # Cerrar y limpiar contenedores previos (si existen)
-./cerrar_docker.sh $number
+echo -e "${GRAY}Limpiando entorno previo...${NC}"
+./cerrar_docker.sh "$number"
+
+echo -e "${GRAY}Lanzando el contenedor ${CONTAINER_NAME}...${NC}"
 
 # Ejecutar el contenedor de Docker en segundo plano (-d)
-# Descomentar la línea "--gpus all \" si se dispone de NVIDIA y los drivers configurados para Docker
+# Notar que $GPU_FLAG se inyecta automáticamente si hace falta sin que tenga comillas extrañas
 docker run --init -it --privileged --network='host' -d \
+  $GPU_FLAG \
   -v /etc/localtime:/etc/localtime:ro \
   -v /etc/timezone:/etc/timezone:ro \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -v /tmp/bags:/root/bags/ \
   -v "$(pwd)/volumen:/root/ros2_ws/volumen" \
-  --name workshop"$number" \
+  --name "$CONTAINER_NAME" \
   -e DISPLAY="$DISPLAY" \
   -e QT_X11_NO_MITSHM=1 \
-  "$IMAGE_NAME"
+  "$IMAGE_NAME" > /dev/null
+
+if [ $? -eq 0 ]; then
+    echo -e "${GRAY}[ÉXITO] Contenedor creado de forma exitosa.${NC}"
+else
+    echo -e "${RED}[ERROR FATAL] Falló la creación del contenedor de Docker.${NC}"
+    exit 1
+fi
