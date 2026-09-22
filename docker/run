@@ -26,12 +26,12 @@ mkdir -p /tmp/bags
 
 # 2. Detección automática de GPU NVIDIA
 GPU_FLAG=""
-if command -v nvidia-smi &> /dev/null; then
-    echo -e "${YELLOW}[INFO] Drivers NVIDIA detectados. Habilitando aceleración gráfica (--gpus all)...${NC}"
-    GPU_FLAG="--gpus all"
-else
-    echo -e "${GRAY}[INFO] No se detectó NVIDIA. Ejecutando en modo estándar...${NC}"
-fi
+#if command -v nvidia-smi &> /dev/null; then
+#    echo -e "${YELLOW}[INFO] Drivers NVIDIA detectados. Habilitando aceleración gráfica (--gpus all)...${NC}"
+#    GPU_FLAG="--gpus all"
+#else
+#    echo -e "${GRAY}[INFO] No se detectó NVIDIA. Ejecutando en modo estándar...${NC}"
+#fi
 
 # Cerrar y limpiar contenedores previos (si existen)
 echo -e "${GRAY}Limpiando entorno previo...${NC}"

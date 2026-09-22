@@ -4,26 +4,30 @@
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 GRAY='\033[0;37m'
-NC='\033[0m' # No Color (restablece el color por defecto de la terminal)
+GREEN='\033[1;32m'
+CYAN='\033[1;36m'
+NC='\033[0m' # No Color (restablece el color)
 # -----------------------------
 
 # Parámetros: $1 es el número del workshop (opcional), $2 es el nombre de la imagen (opcional)
 number="${1:-}"
-IMAGE_NAME="${2:-jar2026}" # Usará 'jar2026' por defecto si no le pasas un segundo argumento
+IMAGE_NAME="${2:-jar2026}" 
 CONTAINER_NAME="workshop$number"
 
 # 1. Comprobar si el contenedor ya existe y está en ejecución
 if [ "$(docker ps -q -f name=^/${CONTAINER_NAME}$)" ]; then
-    echo -e "${GRAY}El contenedor ${CONTAINER_NAME} ya está en ejecución. Entrando...${NC}"
+    echo -e "${CYAN}[INFO] El contenedor ${CONTAINER_NAME} YA EXISTÍA y está en ejecución. Entrando...${NC}"
+    #echo -e "${YELLOW}(Nota: Si no ves tus archivos recientes, sal con 'exit', ejecuta ./cerrar_docker.sh y vuelve a entrar)${NC}"
 
 # 2. Comprobar si el contenedor existe pero está detenido
 elif [ "$(docker ps -a -q -f name=^/${CONTAINER_NAME}$)" ]; then
-    echo -e "${YELLOW}Advertencia: El contenedor ${CONTAINER_NAME} existe pero está detenido. Iniciándolo...${NC}"
+    echo -e "${CYAN}[INFO] El contenedor ${CONTAINER_NAME} YA EXISTÍA (estaba detenido). Iniciándolo y entrando...${NC}"
+    echo -e "${YELLOW}(Nota: Si no ves tus archivos recientes, sal con 'exit', ejecuta ./cerrar_docker.sh y vuelve a entrar)${NC}"
     docker start "$CONTAINER_NAME" > /dev/null
 
 # 3. El contenedor no existe, hay que lanzarlo usando run
 else
-    echo -e "${GRAY}El contenedor ${CONTAINER_NAME} no existe. Creándolo con la imagen '${IMAGE_NAME}'...${NC}"
+    echo -e "${GREEN}[NUEVO] El contenedor ${CONTAINER_NAME} no existía. CREANDO UNO NUEVO con la imagen '${IMAGE_NAME}'...${NC}"
     
     # Comprobar que run existe en el directorio
     if [ ! -f "./run" ]; then
@@ -31,7 +35,7 @@ else
         exit 1
     fi
 
-    # Ejecutar run (recuerda que run recibe: <imagen> <numero>)
+    # Ejecutar run
     ./run "$IMAGE_NAME" "$number"
     
     # Validar que run se haya ejecutado con éxito
@@ -40,15 +44,13 @@ else
         exit 1
     fi
     
-    # Pequeña pausa para asegurar que el demonio de Docker lo haya inicializado correctamente
     sleep 1
 fi
 
 # Habilitar entorno gráfico
-# Se muestra en gris y si falla tira un warning en amarillo (útil si la pc usa Wayland)
 echo -e "${GRAY}Configurando entorno gráfico...${NC}"
 if ! xhost +local:* > /dev/null 2>&1; then
-    echo -e "${YELLOW}[WARNING] No se pudo ejecutar xhost correctamente (puedes ignorarlo si no usas entorno gráfico o usas Wayland).${NC}"
+    echo -e "${YELLOW}[WARNING] No se pudo ejecutar xhost correctamente (ignorar si usas Wayland).${NC}"
 fi
 
 # Entrar al contenedor interactivo
