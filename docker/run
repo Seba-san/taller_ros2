@@ -43,8 +43,7 @@ echo -e "${GRAY}Lanzando el contenedor ${CONTAINER_NAME}...${NC}"
 # Notar que $GPU_FLAG se inyecta automáticamente si hace falta sin que tenga comillas extrañas
 docker run --init -it --privileged --network='host' -d \
   $GPU_FLAG \
-  -v /etc/localtime:/etc/localtime:ro \
-  -v /etc/timezone:/etc/timezone:ro \
+  -e TZ=America/Argentina/Buenos_Aires \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -v /tmp/bags:/root/bags/ \
   -v "$(pwd)/volumen:/root/ros2_ws/volumen" \
