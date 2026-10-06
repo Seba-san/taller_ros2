@@ -1,0 +1,43 @@
+<launch>
+    <!-- Argumentos para la simulación -->
+    <arg name="gui" default="true"/>
+    <arg name="rviz" default="0"/>
+    
+    <!-- 1. Lanzar el mundo vacío en Gazebo Sim (Ignition) -->
+    <!-- Reemplaza gazebo_ros por ros_gz_sim -->
+    <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
+        <!-- <arg name="gz_args" value="-r -v 4 empty.sdf"/>     -->
+           <arg name="gz_args" value="-r -v 4 $(find-pkg-share turtlebot3_gazebo)/worlds/empty_world.world"/>    
+    </include>
+
+ 
+
+    <!-- 2. Insertar (Spawn) el modelo del laberinto en Gazebo Sim -->
+    <!-- En lugar de spawn_entity.py, se utiliza el ejecutable 'create' de ros_gz_sim -->
+    <node pkg="ros_gz_sim" exec="create" name="spawner_laberinto" output="screen" 
+          args="-name laberinto -file /root/ros2_ws/volumen/models/laberinto/model.sdf -x 0.0 -y 0.0 -z 0.0"/>
+
+    <!-- 3. Lanzar RViz2 (Opcional) -->
+    <node pkg="rviz2" exec="rviz2" name="rviz_visualizator" if="$(var rviz)"/>
+
+    <!-- 4. Puente de tópicos (ros_gz_bridge) necesario en Gazebo Sim -->
+    <!-- Para que ROS 2 tenga el reloj de la simulación -->
+    <node pkg="ros_gz_bridge" exec="parameter_bridge" name="clock_bridge" output="screen"
+          args="/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock"/>
+          
+    <!-- NOTA: Para el spawn del turtlebot3, deberás incluir su launch file compatible con Gazebo Sim 
+         cuando esté disponible en Jazzy, o usar un nodo 'create' similar al del laberinto. -->
+
+             <!-- 4. Insertar el Turtlebot3 (con un retraso de 10 segundos) -->
+    <timer period="3.0">
+        <include file="$(find-pkg-share turtlebot3_gazebo)/launch/spawn_turtlebot3.launch.py">
+            <arg name="x_pose" value="1.0"/>
+            <arg name="y_pose" value="5.0"/>
+        </include>
+    </timer>
+
+      <!-- Publicador de la estructura del robot (TF estático) -->
+    <include file="$(find-pkg-share turtlebot3_gazebo)/launch/robot_state_publisher.launch.py">
+        <arg name="use_sim_time" value="true"/>
+    </include>
+</launch>
