@@ -33,6 +33,8 @@ RUN echo "export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST" >> ~/.bashrc
 RUN echo "export GZ_SIM_RESOURCE_PATH=/opt/ros/jazzy/share/turtlebot3_gazebo/models/:/root/ros2_ws/volumen/models" >> ~/.bashrc
 RUN echo "export GAZEBO_MODEL_PATH=/opt/ros/jazzy/share/turtlebot3_gazebo/models/:/root/ros2_ws/volumen/models" >> ~/.bashrc
 
+RUN echo "source /root/ros2_ws/volumen/ros2cd/roscd.sh" >> ~/.bashrc
+
 # Configurar el punto de entrada del contenedor
 WORKDIR /root
 CMD ["bash"]
