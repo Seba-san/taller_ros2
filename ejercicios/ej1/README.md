@@ -15,7 +15,7 @@ El escenario del ejercicio implica un laberinto en el cual se encuentra un robot
 
 2. Inicia la simulación del laberinto ejecutando:
     ```bash
-    ros2 launch lanzar_laberinto.py
+    ros2 launch laberinto2.xml
     ```
 
 3. En otra terminal, abre Rviz2 para visualizar el entorno y la navegación del robot:

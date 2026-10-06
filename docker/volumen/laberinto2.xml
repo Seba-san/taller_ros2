@@ -7,7 +7,7 @@
     <!-- Reemplaza gazebo_ros por ros_gz_sim -->
     <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
         <!-- <arg name="gz_args" value="-r -v 4 empty.sdf"/>     -->
-           <arg name="gz_args" value="-r -v 4 $(find-pkg-share turtlebot3_gazebo)/worlds/empty_world.world"/>    
+           <arg name="gz_args" value="-s -r -v 4 $(find-pkg-share turtlebot3_gazebo)/worlds/empty_world.world"/>    
     </include>
 
  
