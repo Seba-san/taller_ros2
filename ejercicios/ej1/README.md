@@ -10,7 +10,7 @@ El escenario del ejercicio implica un laberinto en el cual se encuentra un robot
 
 1. Abre una terminal y navega a la carpeta donde se encuentra el archivo de lanzamiento:
     ```bash
-    cd /root/catkin_ws/volumen
+    cd /root/ros2_ws/volumen 
     ```
 
 2. Inicia la simulación del laberinto ejecutando:
