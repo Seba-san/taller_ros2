@@ -66,7 +66,7 @@ ros2 run tf2_ros static_transform_publisher --x 0 --y 0 --z 0 --yaw 0 --pitch 0 
 
 Como resultado, el recorrido se puede visualizar de esta manera:
 
-<video src="laberinto_resuelto.mp4" autoplay loop muted playsinline width="100%"></video>
+<video src="https://github.com/user-attachments/assets/aff03803-2205-400a-9979-1676eaa98d0b" autoplay loop muted playsinline width="100%"></video>
 
 ## Soporte
 
