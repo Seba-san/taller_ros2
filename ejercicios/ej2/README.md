@@ -43,6 +43,31 @@ Este ejercicio forma parte de un workshop de ROS2, centrado en desarrollar y afi
 - [Documentación sobre rosbag](https://docs.ros.org/en/foxy/Tutorials/Ros2bag/Recording-And-Playing-Back-Data.html)
 - [ROS2 Launch Files](https://docs.ros.org/en/foxy/Tutorials/Launch-system.html)
 
+## Visualizar Grabación
+
+Para reproducir una grabación en loop hay que ejecutar en una terminal:
+
+```bash
+cd /root/ros2_ws/volumen/clase2
+ros2 bag play -l record/
+```
+
+En otra terminal hacer:
+
+```bash
+ros2 run rviz2 rviz2 --ros-args -p use_sim_time:=true
+```
+
+En esta grabación, no se publicó la relación entre `base_footprint` y `base_scan`, por lo que hay que relacionarlas manualmente con este comando:
+
+```bash
+ros2 run tf2_ros static_transform_publisher --x 0 --y 0 --z 0 --yaw 0 --pitch 0 --roll 0 --frame-id base_footprint --child-frame-id base_scan --ros-args -p use_sim_time:=true
+```
+
+Como resultado, el recorrido se puede visualizar de esta manera:
+
+<video src="laberinto_resuelto.mp4" autoplay loop muted playsinline width="100%"></video>
+
 ## Soporte
 
 Si tienes preguntas o encuentras algún problema durante el ejercicio, no dudes en abrir una issue en el repositorio del workshop o contactar directamente a los organizadores.
