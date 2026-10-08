@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y \
     
 # Configurar el entorno de ROS2
 RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
-RUN echo "export TURTLEBOT3_MODEL=burger_cam" >> ~/.bashrc
+RUN echo "export TURTLEBOT3_MODEL=burger" >> ~/.bashrc
 RUN echo "export ROS_DOMAIN_ID=12" >> ~/.bashrc
 
 RUN echo "export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST" >> ~/.bashrc
