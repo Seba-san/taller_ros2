@@ -1,0 +1,41 @@
+<launch>
+    <arg name="gui" default="true"/>
+    <arg name="rviz" default="true"/>
+
+    <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
+        <arg name="gz_args" value="-s -r -v 4 $(find-pkg-share turtlebot3_gazebo)/worlds/empty_world.world"/>    
+    </include>
+
+    <node pkg="ros_gz_sim" exec="create" name="spawner_laberinto" output="screen" 
+          args="-name laberinto -file /root/ros2_ws/volumen/models/laberinto/model.sdf -x 0.0 -y 0.0 -z 0.0"/>
+
+    <timer period="0.5">
+        <include file="$(find-pkg-share turtlebot3_gazebo)/launch/spawn_turtlebot3.launch.py">
+            <arg name="x_pose" value="1.0"/>
+            <arg name="y_pose" value="5.0"/>
+        </include>
+    </timer>
+
+    <include file="$(find-pkg-share turtlebot3_gazebo)/launch/robot_state_publisher.launch.py">
+        <arg name="use_sim_time" value="true"/>
+    </include>
+
+    <include file="$(find-pkg-share slam_toolbox)/launch/online_async_launch.py">
+        <arg name="use_sim_time" value="true"/>
+    </include>
+
+    <group>
+        <set_remap from="/cmd_vel" to="/nav_cmd_vel"/>
+        <include file="$(find-pkg-share nav2_bringup)/launch/navigation_launch.py">
+            <arg name="use_sim_time" value="true"/>
+        </include>
+    </group>
+    
+    <node pkg="ros_gz_bridge" exec="parameter_bridge" name="cmd_vel_bridge_nav" output="screen"
+          args="/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist">
+        <remap from="/cmd_vel" to="/nav_cmd_vel"/>
+    </node>
+
+    <node pkg="rviz2" exec="rviz2" name="rviz_visualizator" if="$(var rviz)"
+          args="-d $(find-pkg-share nav2_bringup)/rviz/nav2_default_view.rviz"/>
+</launch>
