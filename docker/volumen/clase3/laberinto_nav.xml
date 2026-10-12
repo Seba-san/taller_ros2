@@ -22,6 +22,7 @@
 
     <include file="$(find-pkg-share slam_toolbox)/launch/online_async_launch.py">
         <arg name="use_sim_time" value="true"/>
+        <arg name="slam_params_file" value="/root/ros2_ws/volumen/clase3/slam_toolbox_laberinto.yaml"/>
     </include>
 
     <group>

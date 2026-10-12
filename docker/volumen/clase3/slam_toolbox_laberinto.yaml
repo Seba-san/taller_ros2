@@ -1,0 +1,39 @@
+slam_toolbox:
+  ros__parameters:
+    solver_plugin: solver_plugins::CeresSolver
+    ceres_linear_solver: SCHUR_JACOBI
+    ceres_preconditioner: SCHUR_JACOBI
+    ceres_trust_strategy: LEVENBERG_MARQUARDT
+    ceres_dogleg_type: TRADITIONAL_DOGLEG
+    ceres_loss_function: None
+
+    odom_frame: odom
+    map_frame: map
+    base_frame: base_footprint
+    scan_topic: /scan
+    use_map_saver: true
+    mode: mapping
+
+    min_laser_range: 0.12
+    max_laser_range: 3.5
+
+    minimum_time_interval: 0.2
+    minimum_travel_distance: 0.2
+    minimum_travel_heading: 0.2
+    scan_buffer_size: 20
+    scan_buffer_maximum_scan_distance: 3.5
+    link_match_minimum_response_fine: 0.6
+    link_scan_maximum_distance: 1.0
+
+    # Configuración anti-falsos lazos: desactivado para evitar colapso en pasillos idénticos
+    do_loop_closing: false
+    loop_search_maximum_distance: 1.2
+    loop_match_minimum_response_coarse: 0.75
+    loop_match_minimum_response_fine: 0.85
+    loop_match_minimum_chain_size: 20
+    loop_match_maximum_variance_coarse: 0.4
+    correlation_search_space_dimension: 0.3
+    correlation_search_space_resolution: 0.01
+    loop_search_space_dimension: 4.0
+    distance_variance_penalty: 0.5
+    angle_variance_penalty: 1.0
