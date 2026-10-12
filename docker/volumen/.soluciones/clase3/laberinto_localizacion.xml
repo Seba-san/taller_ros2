@@ -1,0 +1,58 @@
+<launch>
+    <arg name="gui" default="true"/>
+    <arg name="rviz" default="true"/>
+    <arg name="map" default="/root/ros2_ws/volumen/.soluciones/clase3/mapa_laberinto.yaml"/>
+
+    <arg name="params_file" default="/root/ros2_ws/volumen/.soluciones/clase3/nav2_laberinto_params.yaml"/>
+
+    <!-- 1. Simulador Gazebo con el mundo vacío -->
+    <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
+        <arg name="gz_args" value="-s -r -v 4 $(find-pkg-share turtlebot3_gazebo)/worlds/empty_world.world"/>    
+    </include>
+
+    <!-- 2. Spawner del Laberinto -->
+    <node pkg="ros_gz_sim" exec="create" name="spawner_laberinto" output="screen" 
+          args="-name laberinto -file /root/ros2_ws/volumen/models/laberinto/model.sdf -x 0.0 -y 0.0 -z 0.0"/>
+
+    <!-- 3. Spawner del Turtlebot3 Waffle -->
+    <timer period="0.5">
+        <include file="$(find-pkg-share turtlebot3_gazebo)/launch/spawn_turtlebot3.launch.py">
+            <arg name="x_pose" value="1.0"/>
+            <arg name="y_pose" value="5.0"/>
+        </include>
+    </timer>
+
+    <!-- 4. Robot State Publisher -->
+    <include file="$(find-pkg-share turtlebot3_gazebo)/launch/robot_state_publisher.launch.py">
+        <arg name="use_sim_time" value="true"/>
+    </include>
+
+    <!-- 5. Localización con mapa estático (Map Server + AMCL) -->
+    <include file="$(find-pkg-share nav2_bringup)/launch/localization_launch.py">
+        <arg name="use_sim_time" value="true"/>
+        <arg name="map" value="$(var map)"/>
+        <arg name="params_file" value="$(var params_file)"/>
+    </include>
+
+    <!-- 6. Pila de Navegación Nav2 (con cmd_vel remapeado a /nav_cmd_vel) -->
+    <group>
+        <set_remap from="/cmd_vel" to="/nav_cmd_vel"/>
+        <include file="$(find-pkg-share nav2_bringup)/launch/navigation_launch.py">
+            <arg name="use_sim_time" value="true"/>
+            <arg name="params_file" value="$(var params_file)"/>
+        </include>
+    </group>
+    
+    <!-- 7. Puente hacia Gazebo cmd_vel -->
+    <node pkg="ros_gz_bridge" exec="parameter_bridge" name="cmd_vel_bridge_nav" output="screen"
+          args="/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist">
+        <remap from="/cmd_vel" to="/nav_cmd_vel"/>
+    </node>
+
+    <!-- 8. Watchdog de seguridad (garantiza cero velocidad en reposo) -->
+    <executable cmd="python3 -u /root/ros2_ws/volumen/clase3/nav_watchdog.py" output="screen"/>
+
+    <!-- 9. Visualización RViz2 -->
+    <node pkg="rviz2" exec="rviz2" name="rviz_visualizator" if="$(var rviz)"
+          args="-d $(find-pkg-share nav2_bringup)/rviz/nav2_default_view.rviz"/>
+</launch>
