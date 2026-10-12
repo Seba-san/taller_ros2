@@ -36,6 +36,9 @@
         <remap from="/cmd_vel" to="/nav_cmd_vel"/>
     </node>
 
+    <!-- Watchdog activo: frena el robot en Gazebo cuando no hay navegacion activa -->
+    <executable cmd="python3 -u /root/ros2_ws/volumen/clase3/nav_watchdog.py" output="screen"/>
+
     <node pkg="rviz2" exec="rviz2" name="rviz_visualizator" if="$(var rviz)"
           args="-d $(find-pkg-share nav2_bringup)/rviz/nav2_default_view.rviz"/>
 </launch>
