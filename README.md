@@ -47,13 +47,13 @@ Si abre el simulador Gazebo, quiere decir que todo funciona correctamente.
 
 ## Ediciones anteriores
 Puedes consultar todo el material, código y recursos de la primera edición del taller (JAR 2024) accediendo directamente a su rama correspondiente:
-- [**Material completo de la Edición 1**](https://github.com/Seba-san/taller_ros2/tree/edicion1)
+- [**Material completo de la Edición 1**](https://github.com/Seba-san/taller_ros2/tree/edicion_2024)
 
 ### Datos de la Encuesta
 
 Al finalizar el taller anterior, se realizó una encuesta de satisfacción para recoger las impresiones y el feedback de los participantes. Los datos recogidos han sido analizados y están disponibles para consulta:
 
-- [Datos de la Encuesta y Gráficos (Edición 1)](https://github.com/Seba-san/taller_ros2/tree/edicion1/encuesta_ed1)
+- [Datos de la Encuesta y Gráficos (Edición 1)](https://github.com/Seba-san/taller_ros2/tree/edicion_2024/encuesta_ed1)
 
 En esta carpeta, encontrarás tanto el archivo CSV con las respuestas de la encuesta como varias imágenes con gráficos que resumen visualmente la información recogida.
 
@@ -61,7 +61,7 @@ En esta carpeta, encontrarás tanto el archivo CSV con las respuestas de la encu
 
 Durante el desarrollo del taller se tomaron varias fotos que capturan momentos clave del evento y la participación activa de los asistentes. Estas fotos están disponibles en la siguiente carpeta:
 
-- [Fotos del Taller (Edición 1)](https://github.com/Seba-san/taller_ros2/tree/edicion1/fotos)
+- [Fotos del Taller (Edición 1)](https://github.com/Seba-san/taller_ros2/tree/edicion_2024/fotos)
 
 
 ## Contribuciones y Feedback
